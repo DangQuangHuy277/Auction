@@ -25,11 +25,11 @@ public class UserService {
 
         User user = null;
         if (role.equals("BIDDER")) {
-            user = new Bidder(1L, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+            user = new Bidder(request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         } else if (role.equals("SELLER")) {
-            user = new Seller(1L, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+            user = new Seller(request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         } else if (role.equals("ADMIN")) {
-            user = new Admin(1L, request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
+            user = new Admin(request.getUsername(), request.getEmail(), request.getPhone(), request.getPassword());
         }
         assert user != null;
         userRepository.save(user);

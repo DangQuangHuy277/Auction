@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Bidder extends User {
-    public Bidder(Long id, String username, String email, Integer phone, String password) {
-        super(id, username, email, phone, password);
+    public Bidder(String username, String email, Integer phone, String password) {
+        super(username, email, phone, password);
     }
 
 //    @OneToOne

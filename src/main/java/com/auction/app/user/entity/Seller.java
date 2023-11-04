@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 public class Seller extends User {
 
 //    @Builder
-    public Seller(Long id, String username, String email, Integer phone, String password) {
-        super(id, username, email, phone, password);
+    public Seller(String username, String email, Integer phone, String password) {
+        super(username, email, phone, password);
     }
 }

@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Admin extends User {
-    public Admin(Long id, String username, String email, Integer phone, String password) {
-        super(id, username, email, phone, password);
+    public Admin(String username, String email, Integer phone, String password) {
+        super(username, email, phone, password);
     }
 //    List<Auction> pendingAuctions;
 }

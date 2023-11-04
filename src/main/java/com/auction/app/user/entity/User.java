@@ -22,4 +22,11 @@ public class User {
     protected String email;
     protected Integer phone;
     protected String password;
+
+    public User(String username, String email, Integer phone, String password) {
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
 }
