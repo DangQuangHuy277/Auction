@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=auction'
+      - 'POSTGRES_PASSWORD=H27u07y03@'
+      - 'POSTGRES_USER=huy'
+    ports:
+      - '5432'
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    environment:
+      - 'RABBITMQ_DEFAULT_PASS=H27u07y03@'
+      - 'RABBITMQ_DEFAULT_USER=huy'
+    ports:
+      - '5672'
