@@ -11,7 +11,7 @@ import jakarta.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/api/users")
+@RequestMapping("/api/v1/users")
 @CrossOrigin("http://localhost:5173")
 @RequiredArgsConstructor
 public class UserController {

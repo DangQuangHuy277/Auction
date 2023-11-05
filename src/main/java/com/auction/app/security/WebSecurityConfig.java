@@ -48,7 +48,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         a -> a
                                 .requestMatchers("/v1/api/users/**", "/error").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 );
 //                .authenticationProvider(daoAuthenticationProvider())
 //                .exceptionHandling(

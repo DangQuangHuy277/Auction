@@ -7,12 +7,11 @@ import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnect
 @Entity(name = "Users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role")
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
+public abstract class User {
     @Id
     @GeneratedValue
     protected Long id;
