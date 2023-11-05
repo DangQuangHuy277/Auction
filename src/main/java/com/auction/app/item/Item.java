@@ -1,26 +1,31 @@
 package com.auction.app.item;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-import java.time.Instant;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Item {
     @Id
+    @GeneratedValue
     private Long id;
+    @NotNull
     private String name;
     private String description;
     private Integer age;
     private String origin;
     private String material;
 //    private Instant createdDate;
+    @Enumerated
     private Status status;
 
     enum Status{
         IN_INVENTORY,
-        AUCTIONING,
-        SOLD
+        AUCTIONED
     }
 }
 
