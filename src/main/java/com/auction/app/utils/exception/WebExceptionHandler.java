@@ -27,21 +27,28 @@ public class WebExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleSongNotFound(ResourceNotFoundException ex){
+    public ResponseEntity<?> handleResourceNotFound(ResourceNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(ResourceAlreadyExistException.class)
-    public ResponseEntity<?> handleEmailAlreadyExist(ResourceAlreadyExistException ex){
+    public ResponseEntity<?> handleEmailAlreadyExist(ResourceAlreadyExistException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
     @ExceptionHandler(MissingRequiredFieldException.class)
-    public ResponseEntity<?> handleMissingRequiredField(MissingRequiredFieldException ex){
+    public ResponseEntity<?> handleMissingRequiredField(MissingRequiredFieldException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(WrongTypeEntityException.class)
+    public ResponseEntity<?> handleWrongTypeEntity(WrongTypeEntityException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
