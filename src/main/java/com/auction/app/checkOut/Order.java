@@ -13,11 +13,11 @@ public class Order {
     private Item item;
     private Double price;
 
-    private Status status;
-
-    enum Status{
-
-    }
+//    private Status status;
+//
+//    enum Status{
+//
+//    }
 }
 
 

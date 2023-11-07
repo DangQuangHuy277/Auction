@@ -4,25 +4,22 @@ import com.auction.app.chat.Forum;
 import com.auction.app.item.Item;
 import com.auction.app.user.entity.Bidder;
 import com.auction.app.user.entity.Seller;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Auction {
     @Id
+    @GeneratedValue
     private Long id;
     @OneToOne
     private Item item;
@@ -30,19 +27,19 @@ public class Auction {
     private Instant deadline;
     private Double minimumIncrease;
     @OneToMany
-    private List<Bidder> participatedBidders;
+    private List<Bidder> registeredBidders = new ArrayList<>();
     @OneToOne
     private Seller seller;
     @OneToMany
-    private List<Bid> bidHistory;
+    private List<Bid> bidHistory = new ArrayList<>();
     @OneToOne
     private Bid highestBid;
     @OneToOne
-    private Forum forum;
+    private Forum forum = new Forum();
 
     private Status status;
 
-    enum Status {
+    public enum Status {
         PENDING,
         APPROVED,
         ACTIVE,
