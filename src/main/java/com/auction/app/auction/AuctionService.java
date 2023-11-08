@@ -2,11 +2,11 @@ package com.auction.app.auction;
 
 import com.auction.app.auction.dto.AuctionRequest;
 import com.auction.app.auction.dto.AuctionResponse;
-import com.auction.app.chat.Forum;
+import com.auction.app.bid.Bid;
 import com.auction.app.item.Item;
 import com.auction.app.item.ItemRepository;
+import com.auction.app.user.entity.Bidder;
 import com.auction.app.user.entity.Seller;
-import com.auction.app.user.repository.SellerRepository;
 import com.auction.app.user.repository.UserRepository;
 import com.auction.app.utils.exception.ResourceAlreadyExistException;
 import com.auction.app.utils.exception.ResourceNotFoundException;
@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,4 +67,29 @@ public class AuctionService {
         }
         return new AuctionResponse(auctionRepository.save(auction));
     }
+
+    public List<AuctionResponse> getApprovedAuctionsBySeller(Long sellerId) {
+        return auctionRepository.findBySeller_Id(sellerId).stream().map(AuctionResponse::new).toList();
+    }
+
+    public List<AuctionResponse> getRegisteredAuctionsByBidder(Long bidderId) {
+        return auctionRepository.findByRegisteredBidders_Id(bidderId).stream().map(AuctionResponse::new).toList();
+    }
+
+    public AuctionResponse registerBidder(Long bidderId, Long auctionId) {
+        Bidder bidder = (Bidder) userRepository.findById(bidderId)
+                .orElseThrow(() -> new ResourceNotFoundException("The bidder is not found"));
+        Auction auction = auctionRepository.findById(auctionId)
+                .orElseThrow(() -> new ResourceNotFoundException("The auction is not found"));
+        auction.getRegisteredBidders().add(bidder);
+        return new AuctionResponse(auctionRepository.save(auction));
+    }
+
+    public List<AuctionResponse> getWiningAuctionsByBidder(Long bidderId) {
+        return auctionRepository.findByRegisteredBidders_Id(bidderId).stream()
+                .filter(auction -> auction.getStatus() == Auction.Status.CLOSED &&
+                        auction.getHighestBid().getBidder().getId().equals(bidderId))
+                .map(AuctionResponse::new).toList();
+    }
+
 }

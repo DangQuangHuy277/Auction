@@ -1,5 +1,6 @@
 package com.auction.app.auction;
 
+import com.auction.app.bid.Bid;
 import com.auction.app.chat.Forum;
 import com.auction.app.item.Item;
 import com.auction.app.user.entity.Bidder;

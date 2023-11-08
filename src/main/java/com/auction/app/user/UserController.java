@@ -1,5 +1,6 @@
 package com.auction.app.user;
 
+import com.auction.app.user.UserService;
 import com.auction.app.user.dto.RegisterRequest;
 import jdk.jfr.Registered;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,10 @@
 package com.auction.app.auction.dto;
 
 import com.auction.app.auction.Auction;
-import com.auction.app.auction.Bid;
+import com.auction.app.bid.Bid;
 import com.auction.app.chat.Forum;
 import com.auction.app.user.entity.Bidder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -45,6 +46,7 @@ public class AuctionResponse {
         this.forum = auction.getForum();
         this.status = auction.getStatus();
     }
+    @Data
     private class BidderDTO {
         private Long id;
         private String username;
