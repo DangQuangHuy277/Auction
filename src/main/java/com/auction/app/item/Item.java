@@ -1,7 +1,6 @@
 package com.auction.app.item;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,7 +26,7 @@ public class Item {
     @Hidden
     private Status status;
 
-    enum Status{
+    public enum Status{
         IN_INVENTORY,
         AUCTIONED
     }

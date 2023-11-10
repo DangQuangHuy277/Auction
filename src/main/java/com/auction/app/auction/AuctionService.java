@@ -3,7 +3,6 @@ package com.auction.app.auction;
 import com.auction.app.auction.dto.ApproveRequest;
 import com.auction.app.auction.dto.AuctionRequest;
 import com.auction.app.auction.dto.AuctionResponse;
-import com.auction.app.checkOut.Order;
 import com.auction.app.checkOut.OrderRepository;
 import com.auction.app.event.publisher.AuctionEndEventPublisher;
 import com.auction.app.event.publisher.AuctionStartEventPublisher;
@@ -15,9 +14,7 @@ import com.auction.app.user.repository.UserRepository;
 import com.auction.app.utils.exception.ConditionNotMetException;
 import com.auction.app.utils.exception.ResourceAlreadyExistException;
 import com.auction.app.utils.exception.ResourceNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -51,7 +48,7 @@ public class AuctionService {
         }
 
         try {
-            item.setStatus(Item.Status.AUCTIONING);
+            item.setStatus(Item.Status.AUCTIONED);
             Auction newAuction = Auction.builder()
                     .item(item)
                     .startingPrice(auctionRequest.getStartingPrice())
@@ -75,6 +72,8 @@ public class AuctionService {
     public AuctionResponse updateAuction(Long auctionId, AuctionRequest auctionRequest) {
         Auction auction = auctionRepository.findById(auctionId)
                 .orElseThrow(() -> new ResourceNotFoundException("The Auction is not exist"));
+        if(auction.getStatus() != Auction.Status.PENDING)
+            throw new ConditionNotMetException("Auctions can only be updated while pending");
         if (!auctionRequest.getItemId().equals(auction.getItem().getId())) {
             Item newItem = itemRepository.findById(auctionRequest.getItemId())
                     .orElseThrow(() -> new ResourceNotFoundException("This Item is not exists"));
@@ -107,7 +106,15 @@ public class AuctionService {
                 .orElseThrow(() -> new ResourceNotFoundException("The auction is not found"));
         if (!auction.getStatus().equals(Auction.Status.PENDING))
             throw new ConditionNotMetException("This auction is not in pending list");
-        auction.setStatus(approveRequest.getApprove() ? Auction.Status.APPROVED : Auction.Status.DISAPPROVED);
+//        auction.setStatus(approveRequest.getApprove() ? Auction.Status.APPROVED : Auction.Status.DISAPPROVED);
+        if (approveRequest.getApprove()){
+            auction.setStatus(Auction.Status.APPROVED);
+        }
+        else {
+            auction.setStatus(Auction.Status.DISAPPROVED);
+            auction.getItem().setStatus(Item.Status.IN_INVENTORY);
+            itemRepository.save(auction.getItem());
+        }
         auctionRepository.save(auction);
 
     }
