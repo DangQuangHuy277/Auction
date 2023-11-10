@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ViewAuctionService {
     private final AuctionRepository auctionRepository;
+
     public List<AuctionResponse> getAllAuctions() {
         return auctionRepository.findAll().stream().map(AuctionResponse::new).toList();
     }
@@ -30,7 +31,7 @@ public class ViewAuctionService {
 
     public List<AuctionResponse> getSoldAuctionsBySeller(Long sellerId) {
         return auctionRepository.findBySeller_Id(sellerId).stream()
-                .filter(auction -> auction.getItem().getStatus().equals(Item.Status.SOLD))
+                .filter(auction -> auction.getStatus().equals(Auction.Status.SOLD))
                 .map(AuctionResponse::new).toList();
     }
 
@@ -47,7 +48,8 @@ public class ViewAuctionService {
 
     public List<AuctionResponse> getPaidAuctionsByBidder(Long bidderId) {
         return auctionRepository.findByRegisteredBidders_Id(bidderId).stream()
-                .filter(auction -> auction.getItem().getStatus().equals(Item.Status.SOLD))
+                .filter(auction -> auction.getHighestBid().getBidder().getId().equals(bidderId) &&
+                        auction.getStatus().equals(Auction.Status.SOLD))
                 .map(AuctionResponse::new).toList();
     }
 }
