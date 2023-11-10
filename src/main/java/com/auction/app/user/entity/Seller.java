@@ -20,7 +20,7 @@ public class Seller extends User {
     List<Item> itemInventory = new ArrayList<>();
 
     //    @Builder
-    public Seller(String username, String email, Integer phone, String password) {
-        super(username, email, phone, password);
+    public Seller(String username, String email, String phone, String password, Boolean enabled) {
+        super(username, email, phone, password, enabled);
     }
 }
