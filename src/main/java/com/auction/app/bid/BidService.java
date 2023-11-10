@@ -24,6 +24,8 @@ public class BidService {
                 .orElseThrow(() -> new ResourceNotFoundException("The bidder is not found"));
         Auction auction = auctionRepository.findById(auctionId)
                 .orElseThrow(() -> new ResourceNotFoundException("The auction is not found"));
+        if (!auction.getRegisteredBidders().contains(bidder))
+            throw new ConditionNotMetException("This Bidder has not registered to participate in this auction");
         if (auction.getHighestBid() != null){
             if (auction.getHighestBid().getPrice() >= bid.getPrice())
                 throw new ConditionNotMetException("This bid is not higher than the current highest bid");
