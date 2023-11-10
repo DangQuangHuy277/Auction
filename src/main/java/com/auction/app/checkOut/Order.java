@@ -1,17 +1,28 @@
 package com.auction.app.checkOut;
 
 import com.auction.app.item.Item;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+@Entity(name = "ORDERS")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Order {
     @Id
+    @GeneratedValue
     private Long id;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(unique = true)
     private Item item;
     private Double price;
+
+    public Order(Item item, Double price) {
+        this.item = item;
+        this.price = price;
+    }
 
 //    private Status status;
 //

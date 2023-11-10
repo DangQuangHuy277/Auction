@@ -1,14 +1,13 @@
 package com.auction.app.user.entity;
 
+
 import com.auction.app.checkOut.Order;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,12 +15,12 @@ import java.util.List;
 @Getter
 @Setter
 public class Bidder extends User {
-    @OneToMany
-    @JoinColumn()
-    private List<Order> cart;
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "bidder_id")
+    private List<Order> cart = new ArrayList<>();
 
-    public Bidder(String username, String email, Integer phone, String password) {
-        super(username, email, phone, password);
+    public Bidder(String username, String email, String phone, String password, Boolean enabled) {
+        super(username, email, phone, password, enabled);
     }
 
 //    @OneToOne
