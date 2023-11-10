@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long>{
-    @Override
-    Optional<Auction> findById(Long id);
 
     List<Auction> findBySeller_Id(Long id);
 
