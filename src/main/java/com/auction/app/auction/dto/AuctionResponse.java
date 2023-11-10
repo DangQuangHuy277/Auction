@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 
 @NoArgsConstructor
@@ -18,6 +19,7 @@ public class AuctionResponse {
 
     private Long itemId;
     private Double startingPrice;
+    private Instant startingTime;
     private Instant deadline;
     private Double minimumIncrease;
 
@@ -38,8 +40,11 @@ public class AuctionResponse {
         this.itemId = auction.getItem().getId();
         this.startingPrice = auction.getStartingPrice();
         this.minimumIncrease = auction.getMinimumIncrease();
+        this.startingTime = auction.getStartingTime();
         this.deadline = auction.getDeadline();
-        this.registeredBidders = auction.getRegisteredBidders().stream().map(BidderDTO::new).toList();
+        this.registeredBidders = (auction.getRegisteredBidders() != null) ?
+                auction.getRegisteredBidders().stream().map(BidderDTO::new).toList() :
+                Collections.emptyList();
         this.sellerId = auction.getSeller().getId();
         this.bidHistory = auction.getBidHistory();
         this.highestBid = auction.getHighestBid();

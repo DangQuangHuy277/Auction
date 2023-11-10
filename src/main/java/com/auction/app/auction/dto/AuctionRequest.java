@@ -14,6 +14,7 @@ public class AuctionRequest {
     @NotNull
     private Long itemId;
     private Double startingPrice;
+    private Instant startingTime;
     private Instant deadline;
     private Double minimumIncrease;
 }
