@@ -7,9 +7,12 @@ import com.auction.app.user.entity.Seller;
 import com.auction.app.user.entity.User;
 import com.auction.app.user.repository.UserRepository;
 import com.auction.app.utils.exception.ResourceAlreadyExistException;
+import com.auction.app.utils.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,12 +29,23 @@ public class UserService {
 
         User user = new Bidder();
         if (role.equals("BIDDER")) {
-            user = new Bidder(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()));
+            user = new Bidder(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
         } else if (role.equals("SELLER")) {
-            user = new Seller(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()));
+            user = new Seller(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
         } else if (role.equals("ADMIN")) {
-            user = new Admin(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()));
+            user = new Admin(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
         }
         userRepository.save(user);
+    }
+
+    public List<User> getAllUser() {
+        return userRepository.findAll();
+    }
+
+    public User setEnableUser(Long userId, boolean enabled) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("The user is not found"));
+        user.setEnabled(enabled);
+        return userRepository.save(user);
     }
 }
