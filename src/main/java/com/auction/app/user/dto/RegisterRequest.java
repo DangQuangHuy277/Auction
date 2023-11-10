@@ -15,7 +15,7 @@ public class RegisterRequest {
     @NotNull
     @Min(5)
     private String password;
-    private Integer phone;
+    private String phone;
     @NotNull
     private String role;
 }
