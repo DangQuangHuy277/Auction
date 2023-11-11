@@ -97,6 +97,8 @@ public class AuctionService {
                 .orElseThrow(() -> new ResourceNotFoundException("The bidder is not found"));
         Auction auction = auctionRepository.findById(auctionId)
                 .orElseThrow(() -> new ResourceNotFoundException("The auction is not found"));
+        if (auction.getStatus().equals(Auction.Status.PENDING) || auction.getStatus().equals(Auction.Status.DISAPPROVED))
+            throw new ConditionNotMetException("Can't register to pending or disapproved auction!");
         auction.getRegisteredBidders().add(bidder);
         return new AuctionResponse(auctionRepository.save(auction));
     }

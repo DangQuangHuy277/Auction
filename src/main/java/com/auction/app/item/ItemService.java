@@ -1,7 +1,6 @@
 package com.auction.app.item;
 
 import com.auction.app.user.entity.Seller;
-import com.auction.app.user.repository.SellerRepository;
 import com.auction.app.user.repository.UserRepository;
 import com.auction.app.utils.exception.ResourceNotFoundException;
 import com.auction.app.utils.exception.WrongTypeEntityException;
