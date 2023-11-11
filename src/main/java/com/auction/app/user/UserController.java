@@ -1,9 +1,9 @@
 package com.auction.app.user;
 
-import com.auction.app.user.UserService;
+
+import com.auction.app.user.dto.LoginRequest;
 import com.auction.app.user.dto.RegisterRequest;
 import com.auction.app.user.entity.User;
-import jdk.jfr.Registered;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +23,14 @@ public class UserController {
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest userInfo){
         service.register(userInfo);
         return new ResponseEntity<>(Map.of("message", "Account registered successfully!"), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
+        if (service.login(loginRequest)){
+            return ResponseEntity.ok("Login successful");
+        }
+        else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
     }
 
     @GetMapping("/")
