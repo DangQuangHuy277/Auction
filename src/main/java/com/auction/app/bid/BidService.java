@@ -36,6 +36,7 @@ public class BidService {
         bid.setBidder(bidder);
         bid.setTimestamp(Instant.now());
         auction.setHighestBid(bid);
+        auction.getBidHistory().add(bid);
         bid = bidRepository.save(bid);
         auctionRepository.save(auction);
         return bid;
