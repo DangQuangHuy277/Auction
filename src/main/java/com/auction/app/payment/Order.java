@@ -1,4 +1,4 @@
-package com.auction.app.checkOut;
+package com.auction.app.payment;
 
 import com.auction.app.item.Item;
 import jakarta.persistence.*;

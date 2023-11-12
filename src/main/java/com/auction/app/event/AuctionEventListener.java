@@ -3,8 +3,8 @@ package com.auction.app.event;
 
 import com.auction.app.auction.Auction;
 import com.auction.app.auction.repository.AuctionRepository;
-import com.auction.app.checkOut.Order;
-import com.auction.app.checkOut.OrderRepository;
+import com.auction.app.payment.Order;
+import com.auction.app.payment.OrderRepository;
 import com.auction.app.event.event.AuctionEndEvent;
 import com.auction.app.event.event.AuctionStartEvent;
 import com.auction.app.item.Item;

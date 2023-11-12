@@ -1,4 +1,4 @@
-package com.auction.app.checkOut;
+package com.auction.app.payment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

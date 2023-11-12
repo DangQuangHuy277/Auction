@@ -50,9 +50,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Boolean login(LoginRequest loginRequest) {
+    public User login(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("The user is not found"));
-        return passwordEncoder.matches(loginRequest.getPassword(), user.getPassword());
+        if(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) return user;
+        else return null;
     }
 }

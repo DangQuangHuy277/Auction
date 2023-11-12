@@ -1,7 +1,7 @@
 package com.auction.app.user.entity;
 
 
-import com.auction.app.checkOut.Order;
+import com.auction.app.payment.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

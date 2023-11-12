@@ -20,28 +20,28 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService service;
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest userInfo){
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest userInfo) {
         service.register(userInfo);
         return new ResponseEntity<>(Map.of("message", "Account registered successfully!"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest){
-        if (service.login(loginRequest)){
-            return ResponseEntity.ok("Login successful");
-        }
-        else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+        User user = service.login(loginRequest);
+        if (user != null) return ResponseEntity.ok(user);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong password");
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> getAllUsers(){
+    public ResponseEntity<?> getAllUsers() {
         List<User> users = service.getAllUser();
         return ResponseEntity.ok(users);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<?> setEnableUser(@PathVariable("userId") Long userId, @RequestBody boolean enabled){
+    public ResponseEntity<?> setEnableUser(@PathVariable("userId") Long userId, @RequestBody boolean enabled) {
         User user = service.setEnableUser(userId, enabled);
         return ResponseEntity.ok(user);
     }
