@@ -25,7 +25,7 @@ public abstract class User {
     @JsonIgnore
     protected String password;
 
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     public User(String username, String email, String phone, String password, Boolean enabled) {
         this.username = username;
