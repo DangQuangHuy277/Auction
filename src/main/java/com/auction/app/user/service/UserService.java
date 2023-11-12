@@ -1,8 +1,10 @@
-package com.auction.app.user;
+package com.auction.app.user.service;
 
 import com.auction.app.user.dto.LoginRequest;
 import com.auction.app.user.dto.RegisterRequest;
+import com.auction.app.user.entity.Admin;
 import com.auction.app.user.entity.Bidder;
+import com.auction.app.user.entity.Seller;
 import com.auction.app.user.entity.User;
 import com.auction.app.user.repository.UserRepository;
 import com.auction.app.exception.ResourceAlreadyExistException;
@@ -27,13 +29,13 @@ public class UserService {
         String role = request.getRole();
 
         User user = new Bidder();
-//        if (role.equals("BIDDER")) {
-//            user = new Bidder(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
-//        } else if (role.equals("SELLER")) {
-//            user = new Seller(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
-//        } else if (role.equals("ADMIN")) {
-//            user = new Admin(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
-//        }
+        if (role.equals("BIDDER")) {
+            user = new Bidder(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
+        } else if (role.equals("SELLER")) {
+            user = new Seller(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
+        } else if (role.equals("ADMIN")) {
+            user = new Admin(request.getUsername(), request.getEmail(), request.getPhone(), passwordEncoder.encode(request.getPassword()), true);
+        }
         userRepository.save(user);
     }
 

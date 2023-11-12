@@ -1,5 +1,6 @@
-package com.auction.app.user;
+package com.auction.app.user.controller;
 
+import com.auction.app.user.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

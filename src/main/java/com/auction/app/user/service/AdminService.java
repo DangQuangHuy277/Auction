@@ -1,4 +1,4 @@
-package com.auction.app.user;
+package com.auction.app.user.service;
 
 import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.user.repository.UserRepository;

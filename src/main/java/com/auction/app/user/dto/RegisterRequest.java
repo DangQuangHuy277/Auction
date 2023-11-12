@@ -13,7 +13,6 @@ public class RegisterRequest {
     @NotNull
     private String email;
     @NotNull
-    @Min(5)
     private String password;
     private String phone;
     @NotNull

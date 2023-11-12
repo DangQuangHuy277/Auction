@@ -1,6 +1,7 @@
-package com.auction.app.user;
+package com.auction.app.user.controller;
 
 
+import com.auction.app.user.service.UserService;
 import com.auction.app.user.dto.LoginRequest;
 import com.auction.app.user.dto.RegisterRequest;
 import com.auction.app.user.entity.User;
