@@ -1,4 +1,4 @@
-package com.auction.app.utils.exception;
+package com.auction.app.exception;
 
 public class ConditionNotMetException extends RuntimeException{
     public ConditionNotMetException(String message) {

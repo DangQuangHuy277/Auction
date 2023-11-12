@@ -1,12 +1,11 @@
 package com.auction.app.user;
 
-import com.auction.app.auction.AuctionRepository;
+import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

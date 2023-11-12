@@ -1,6 +1,7 @@
-package com.auction.app.auction;
+package com.auction.app.auction.controller;
 
 
+import com.auction.app.auction.service.ViewAuctionService;
 import com.auction.app.auction.dto.AuctionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,12 @@ public class ViewAuctionController {
     public ResponseEntity<?> getAllAuctions() {
         List<AuctionResponse> auctions = auctionService.getAllAuctions();
         return ResponseEntity.ok(auctions);
+    }
+
+    @GetMapping("/auctions/{auctionId}")
+    public ResponseEntity<?> getAuctionDetail(@PathVariable("auctionId") Long auctionId){
+        AuctionResponse auction = auctionService.getAuctionDetail(auctionId);
+        return ResponseEntity.ok(auction);
     }
 
     @GetMapping("/sellers/{sellerId}/auctions/approved")

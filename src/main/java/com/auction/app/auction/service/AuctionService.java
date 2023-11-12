@@ -1,9 +1,10 @@
-package com.auction.app.auction;
+package com.auction.app.auction.service;
 
+import com.auction.app.auction.Auction;
+import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.auction.dto.ApproveRequest;
 import com.auction.app.auction.dto.AuctionRequest;
 import com.auction.app.auction.dto.AuctionResponse;
-import com.auction.app.checkOut.OrderRepository;
 import com.auction.app.event.publisher.AuctionEndEventPublisher;
 import com.auction.app.event.publisher.AuctionStartEventPublisher;
 import com.auction.app.item.Item;
@@ -11,9 +12,9 @@ import com.auction.app.item.ItemRepository;
 import com.auction.app.user.entity.Bidder;
 import com.auction.app.user.entity.Seller;
 import com.auction.app.user.repository.UserRepository;
-import com.auction.app.utils.exception.ConditionNotMetException;
-import com.auction.app.utils.exception.ResourceAlreadyExistException;
-import com.auction.app.utils.exception.ResourceNotFoundException;
+import com.auction.app.exception.ConditionNotMetException;
+import com.auction.app.exception.ResourceAlreadyExistException;
+import com.auction.app.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,7 +31,6 @@ public class AuctionService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
-    private final OrderRepository orderRepository;
 
     public AuctionResponse createNewAuction(Long sellerId, AuctionRequest auctionRequest) {
         if (!auctionRequest.getStartingTime().isBefore(auctionRequest.getDeadline()))

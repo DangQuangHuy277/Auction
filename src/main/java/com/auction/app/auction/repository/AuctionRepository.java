@@ -1,5 +1,6 @@
-package com.auction.app.auction;
+package com.auction.app.auction.repository;
 
+import com.auction.app.auction.Auction;
 import com.auction.app.user.entity.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

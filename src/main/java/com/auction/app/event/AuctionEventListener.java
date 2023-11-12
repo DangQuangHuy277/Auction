@@ -2,7 +2,7 @@ package com.auction.app.event;
 
 
 import com.auction.app.auction.Auction;
-import com.auction.app.auction.AuctionRepository;
+import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.checkOut.Order;
 import com.auction.app.checkOut.OrderRepository;
 import com.auction.app.event.event.AuctionEndEvent;
@@ -11,7 +11,7 @@ import com.auction.app.item.Item;
 import com.auction.app.item.ItemRepository;
 import com.auction.app.user.entity.Bidder;
 import com.auction.app.user.repository.UserRepository;
-import com.auction.app.utils.exception.ResourceNotFoundException;
+import com.auction.app.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
@@ -40,6 +40,8 @@ public class AuctionEventListener {
         if (auction.getStatus().equals(Auction.Status.APPROVED)) {
             auction.setStatus(Auction.Status.ACTIVE);
             logger.info("Auction " + startEvent.getAuctionId() + "start successful");
+            messagingTemplate.convertAndSend("/topic/auctions." + auction.getId() + ".notifications",
+                    "The auction " + auction.getId() + " is starting now!");
         } else if (auction.getStatus().equals(Auction.Status.PENDING)) {
             auction.setStatus(Auction.Status.DISAPPROVED);
             auction.getItem().setStatus(Item.Status.IN_INVENTORY);
@@ -56,10 +58,13 @@ public class AuctionEventListener {
         if (auction == null || !auction.getStatus().equals(Auction.Status.ACTIVE)) return;
         auction.setStatus(Auction.Status.CLOSED);
         auctionRepository.save(auction);
+        messagingTemplate.convertAndSend("/topic/auctions." + auction.getId() + ".notifications",
+                "The auction " + auction.getId() + " will end now!");
         logger.info("Auction" + endEvent.getAuctionId() + "end successful");
         if (auction.getHighestBid() == null){
             auction.getItem().setStatus(Item.Status.IN_INVENTORY);
             itemRepository.save(auction.getItem());
+            return;
         }
 
         //create order for the wining bidder

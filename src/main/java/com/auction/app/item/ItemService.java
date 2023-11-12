@@ -2,15 +2,13 @@ package com.auction.app.item;
 
 import com.auction.app.user.entity.Seller;
 import com.auction.app.user.repository.UserRepository;
-import com.auction.app.utils.exception.ResourceNotFoundException;
-import com.auction.app.utils.exception.WrongTypeEntityException;
+import com.auction.app.exception.ResourceNotFoundException;
+import com.auction.app.exception.WrongTypeEntityException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -61,5 +59,10 @@ public class ItemService {
     public void deleteItemById(Long itemId) {
 
         itemRepository.deleteById(itemId);
+    }
+
+    public Item getItemById(Long itemId) {
+        return itemRepository.findById(itemId)
+                .orElseThrow(() -> new ResourceNotFoundException("The item is not found"));
     }
 }

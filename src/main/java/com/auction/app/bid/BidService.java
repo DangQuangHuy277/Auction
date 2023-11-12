@@ -1,12 +1,11 @@
 package com.auction.app.bid;
 
 import com.auction.app.auction.Auction;
-import com.auction.app.auction.AuctionRepository;
-import com.auction.app.user.UserService;
+import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.user.entity.Bidder;
 import com.auction.app.user.repository.UserRepository;
-import com.auction.app.utils.exception.ConditionNotMetException;
-import com.auction.app.utils.exception.ResourceNotFoundException;
+import com.auction.app.exception.ConditionNotMetException;
+import com.auction.app.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,6 @@ public class BidService {
         auction.setHighestBid(bid);
         bid = bidRepository.save(bid);
         auctionRepository.save(auction);
-        //TO-DO: publish this event to user-listener of this auction
         return bid;
     }
 }

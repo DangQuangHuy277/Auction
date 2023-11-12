@@ -1,19 +1,16 @@
-package com.auction.app.auction;
+package com.auction.app.auction.controller;
 
 
+import com.auction.app.auction.service.AuctionService;
 import com.auction.app.auction.dto.ApproveRequest;
 import com.auction.app.auction.dto.AuctionRequest;
 import com.auction.app.auction.dto.AuctionResponse;
-import com.auction.app.bid.Bid;
-import com.auction.app.checkOut.Order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")

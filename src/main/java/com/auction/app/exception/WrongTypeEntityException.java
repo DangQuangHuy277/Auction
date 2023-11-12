@@ -1,4 +1,4 @@
-package com.auction.app.utils.exception;
+package com.auction.app.exception;
 
 public class WrongTypeEntityException extends RuntimeException{
     public WrongTypeEntityException(String message) {

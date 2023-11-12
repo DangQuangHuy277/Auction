@@ -1,7 +1,9 @@
-package com.auction.app.auction;
+package com.auction.app.auction.service;
 
+import com.auction.app.auction.Auction;
+import com.auction.app.auction.repository.AuctionRepository;
 import com.auction.app.auction.dto.AuctionResponse;
-import com.auction.app.item.Item;
+import com.auction.app.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,10 @@ public class ViewAuctionService {
                 .filter(auction -> auction.getHighestBid().getBidder().getId().equals(bidderId) &&
                         auction.getStatus().equals(Auction.Status.SOLD))
                 .map(AuctionResponse::new).toList();
+    }
+
+    public AuctionResponse getAuctionDetail(Long auctionId) {
+        return new AuctionResponse(auctionRepository.findById(auctionId)
+                .orElseThrow(() -> new ResourceNotFoundException("The auction is not found")));
     }
 }

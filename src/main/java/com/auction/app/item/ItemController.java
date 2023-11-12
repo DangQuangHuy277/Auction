@@ -14,6 +14,12 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
 
+    @GetMapping("/items/{itemId}")
+    public ResponseEntity<?> getItemById(@PathVariable("itemId") Long itemId){
+        Item item = itemService.getItemById(itemId);
+        return ResponseEntity.ok(item);
+    }
+
     @GetMapping("/sellers/{sellerId}/items")
     public ResponseEntity<?> getItemsBySellerId(@PathVariable("sellerId") Long sellerId) {
         List<Item> sellerInventory = itemService.getItemsBySellerId(sellerId);
