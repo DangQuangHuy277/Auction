@@ -40,6 +40,12 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable("userId") Long userId){
+        User user = service.getUserById(userId);
+        return ResponseEntity.ok(user);
+    }
+
     @PatchMapping("/{userId}")
     public ResponseEntity<?> setEnableUser(@PathVariable("userId") Long userId, @RequestBody boolean enabled) {
         User user = service.setEnableUser(userId, enabled);

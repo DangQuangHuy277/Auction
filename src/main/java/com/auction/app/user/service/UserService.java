@@ -56,4 +56,9 @@ public class UserService {
         if(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) return user;
         else return null;
     }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("The user is not found"));
+    }
 }
