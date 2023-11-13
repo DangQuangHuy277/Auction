@@ -22,7 +22,6 @@ public class Bid {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bidder_id")
-    @JsonIgnore
     private Bidder bidder;
 
 //    private Auction auction;
